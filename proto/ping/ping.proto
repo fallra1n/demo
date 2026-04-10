@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ping;
+
+option go_package = "github.com/fallra1n/demo/proto/ping";
+
+service Reverse {
+  rpc Do(Request) returns (Response) {}
+}
+
+message Request {
+  string message = 1;
+}
+
+message Response {
+  string message = 1;
+}
