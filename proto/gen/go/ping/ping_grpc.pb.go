@@ -19,101 +19,101 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Reverse_Do_FullMethodName = "/ping.Reverse/Do"
+	Ping_Do_FullMethodName = "/ping.Ping/Do"
 )
 
-// ReverseClient is the client API for Reverse service.
+// PingClient is the client API for Ping service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ReverseClient interface {
+type PingClient interface {
 	Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 }
 
-type reverseClient struct {
+type pingClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewReverseClient(cc grpc.ClientConnInterface) ReverseClient {
-	return &reverseClient{cc}
+func NewPingClient(cc grpc.ClientConnInterface) PingClient {
+	return &pingClient{cc}
 }
 
-func (c *reverseClient) Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *pingClient) Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Response)
-	err := c.cc.Invoke(ctx, Reverse_Do_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Ping_Do_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ReverseServer is the server API for Reverse service.
-// All implementations must embed UnimplementedReverseServer
+// PingServer is the server API for Ping service.
+// All implementations must embed UnimplementedPingServer
 // for forward compatibility.
-type ReverseServer interface {
+type PingServer interface {
 	Do(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedReverseServer()
+	mustEmbedUnimplementedPingServer()
 }
 
-// UnimplementedReverseServer must be embedded to have
+// UnimplementedPingServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedReverseServer struct{}
+type UnimplementedPingServer struct{}
 
-func (UnimplementedReverseServer) Do(context.Context, *Request) (*Response, error) {
+func (UnimplementedPingServer) Do(context.Context, *Request) (*Response, error) {
 	return nil, status.Error(codes.Unimplemented, "method Do not implemented")
 }
-func (UnimplementedReverseServer) mustEmbedUnimplementedReverseServer() {}
-func (UnimplementedReverseServer) testEmbeddedByValue()                 {}
+func (UnimplementedPingServer) mustEmbedUnimplementedPingServer() {}
+func (UnimplementedPingServer) testEmbeddedByValue()              {}
 
-// UnsafeReverseServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ReverseServer will
+// UnsafePingServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PingServer will
 // result in compilation errors.
-type UnsafeReverseServer interface {
-	mustEmbedUnimplementedReverseServer()
+type UnsafePingServer interface {
+	mustEmbedUnimplementedPingServer()
 }
 
-func RegisterReverseServer(s grpc.ServiceRegistrar, srv ReverseServer) {
-	// If the following call panics, it indicates UnimplementedReverseServer was
+func RegisterPingServer(s grpc.ServiceRegistrar, srv PingServer) {
+	// If the following call panics, it indicates UnimplementedPingServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Reverse_ServiceDesc, srv)
+	s.RegisterService(&Ping_ServiceDesc, srv)
 }
 
-func _Reverse_Do_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Ping_Do_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReverseServer).Do(ctx, in)
+		return srv.(PingServer).Do(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Reverse_Do_FullMethodName,
+		FullMethod: Ping_Do_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReverseServer).Do(ctx, req.(*Request))
+		return srv.(PingServer).Do(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Reverse_ServiceDesc is the grpc.ServiceDesc for Reverse service.
+// Ping_ServiceDesc is the grpc.ServiceDesc for Ping service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Reverse_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ping.Reverse",
-	HandlerType: (*ReverseServer)(nil),
+var Ping_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ping.Ping",
+	HandlerType: (*PingServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Do",
-			Handler:    _Reverse_Do_Handler,
+			Handler:    _Ping_Do_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

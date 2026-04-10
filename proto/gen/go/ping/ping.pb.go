@@ -118,8 +118,8 @@ const file_ping_proto_rawDesc = "" +
 	"\aRequest\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"$\n" +
 	"\bResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage20\n" +
-	"\aReverse\x12%\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2-\n" +
+	"\x04Ping\x12%\n" +
 	"\x02Do\x12\r.ping.Request\x1a\x0e.ping.Response\"\x00B,Z*github.com/fallra1n/demo/proto/gen/go/pingb\x06proto3"
 
 var (
@@ -140,8 +140,8 @@ var file_ping_proto_goTypes = []any{
 	(*Response)(nil), // 1: ping.Response
 }
 var file_ping_proto_depIdxs = []int32{
-	0, // 0: ping.Reverse.Do:input_type -> ping.Request
-	1, // 1: ping.Reverse.Do:output_type -> ping.Response
+	0, // 0: ping.Ping.Do:input_type -> ping.Request
+	1, // 1: ping.Ping.Do:output_type -> ping.Response
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
