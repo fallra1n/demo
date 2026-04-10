@@ -5,7 +5,7 @@ package ping;
 option go_package = "github.com/fallra1n/demo/proto/gen/go/ping";
 
 service Ping {
-  rpc Do(Request) returns (Response) {}
+  rpc Ping(Request) returns (Response) {}
 }
 
 message Request {
