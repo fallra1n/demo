@@ -120,7 +120,7 @@ const file_ping_proto_rawDesc = "" +
 	"\bResponse\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage20\n" +
 	"\aReverse\x12%\n" +
-	"\x02Do\x12\r.ping.Request\x1a\x0e.ping.Response\"\x00B%Z#github.com/fallra1n/demo/proto/pingb\x06proto3"
+	"\x02Do\x12\r.ping.Request\x1a\x0e.ping.Response\"\x00B,Z*github.com/fallra1n/demo/proto/gen/go/pingb\x06proto3"
 
 var (
 	file_ping_proto_rawDescOnce sync.Once

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package ping;
 
-option go_package = "github.com/fallra1n/demo/proto/ping";
+option go_package = "github.com/fallra1n/demo/proto/gen/go/ping";
 
 service Reverse {
   rpc Do(Request) returns (Response) {}
