@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
@@ -13,9 +14,17 @@ import (
 )
 
 func main() {
+	// Tracer
+	shutdown, err := InitTracer("demo-app-client")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer shutdown(context.Background())
+
 	conn, err := grpc.NewClient(
 		"localhost:50051",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithStatsHandler(otelgrpc.NewClientHandler()),
 	)
 	if err != nil {
 		log.Fatalf("Не удалось подключиться: %v", err)

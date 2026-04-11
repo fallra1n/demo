@@ -3,6 +3,7 @@ package ping
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/fallra1n/demo/proto/gen/go/ping"
 	"google.golang.org/grpc"
@@ -20,6 +21,8 @@ func (s *serverAPI) Ping(ctx context.Context, req *ping.Request) (*ping.Response
 	const op = "ping.serverAPI.Ping"
 
 	log.Printf("%s: received request: %v", op, req)
+
+	time.Sleep(100 * time.Millisecond)
 
 	return &ping.Response{
 		Message: "Pong: " + req.GetMessage(),
