@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/fallra1n/demo/proto/gen/go/ping"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 )
 
@@ -20,7 +21,10 @@ func Register(gRPC *grpc.Server) {
 func (s *serverAPI) Ping(ctx context.Context, req *ping.Request) (*ping.Response, error) {
 	const op = "ping.serverAPI.Ping"
 
-	log.Printf("%s: received request: %v", op, req)
+	span := trace.SpanFromContext(ctx)
+	traceID := span.SpanContext().TraceID().String()
+
+	log.Printf("%s: received request: %v, traceID: %s", op, req, traceID)
 
 	time.Sleep(100 * time.Millisecond)
 
