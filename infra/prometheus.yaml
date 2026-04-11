@@ -1,0 +1,16 @@
+global:
+  # как часто собирать метрики
+  scrape_interval: 60s
+  # как часто определять правила
+  evaluation_interval: 60s
+
+scrape_configs:
+  # все метрики будут иметь такой лейбл
+  - job_name: "otel-collector"
+  # куда otel будет экспортировать метрики
+    static_configs:
+      - targets: ["otel-collector:8889"]
+
+rule_files:
+  # доп. правила, например алерты
+  - /etc/prometheus/rules/*.yaml

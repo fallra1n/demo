@@ -1,0 +1,45 @@
+server:
+  http_listen_port: 3200 
+  grpc_listen_port: 9095
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+      # Именно сюда коллектор будет слать трейсы
+        grpc:
+          endpoint: "0.0.0.0:4317"
+        http:
+          endpoint: "0.0.0.0:4318"
+
+ingester:
+  # если к трейсу не будут прикреплены спаны в течение trace_idle_period
+  # то он будет стёрт; чем ниже значение тем быстрее будут видны на ui
+  trace_idle_period: 5s
+  # сколько времени будет жить блок до записи на диск
+  # чем ниже значение тем чаще будет запись на диск и больше блоков
+  max_block_duration: 30m
+
+querier:
+  frontend_worker:
+    # нужно для того чтобы Grafana могла показывать трейсы
+    frontend_address: tempo:9095
+
+query_frontend:
+  search:
+    duration_slo: 5s
+  trace_by_id:
+    duration_slo: 5s
+
+# где хранятся трейсы
+storage:
+  trace:
+    backend: local
+    local:
+      path: /var/tempo/traces
+
+# сжимает блоки, удаляет старые блоки => умеренное использование диска,
+# но трейсы исчезают через block_retention времени
+compactor:
+  compaction:
+    block_retention: 30m
