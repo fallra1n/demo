@@ -3,7 +3,7 @@ module github.com/fallra1n/demo/demo-app
 go 1.26.1
 
 require (
-	github.com/fallra1n/demo/proto v0.0.0-20260410234650-01a214351c3f
+	github.com/fallra1n/demo/proto v0.0.0-20260411000916-5586ec4f21d1
 	google.golang.org/grpc v1.80.0
 )
 
